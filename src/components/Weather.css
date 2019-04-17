@@ -1,0 +1,52 @@
+.weather {
+  width: 100%;
+  background-color: #1e202b;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 2fr repeat(5, 1fr);
+}
+.weather .present:first-of-type {
+  border-top-left-radius: 10px;
+}
+.weather header {
+  background-color: #343641;
+  padding: 20px;
+  color: #bfc1c8;
+}
+.weather header div {
+  display: flex;
+  justify-content: space-between;
+}
+.weather .weather-content {
+  padding: 10px;
+}
+.weather .weather-content > h3 {
+  font-size: 25px;
+  color: #bfc1c8;
+  margin-bottom: 0px;
+}
+.weather .weather-content .degree {
+  display: flex;
+  align-items: center;
+}
+.weather .weather-content .degree h2 {
+  color: #fff;
+  font-size: 60px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.weather .weather-content .degree span {
+  margin-left: 10px;
+}
+.weather .weather-content .degree span img {
+  width: 60px;
+}
+.weather .procedure {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  color: #bfc1c8;
+}
+.weather .procedure .weather-description {
+  text-transform: capitalize;
+}

@@ -1,0 +1,66 @@
+// weather-icon
+span {
+    display: block
+}
+
+
+.detail-container {
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    padding: 10px;
+    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+   
+    div:hover {
+        transform: translate(0px, -10px)
+    }
+    div {
+        transition-duration: 0.5s;
+        header {
+            background-color: #d6d7dc;
+            padding: 10px;
+        }
+        text-align: center;
+        background-color: #bfc1c8;
+        padding: 10px;
+
+        .hours::after {
+            content: 'oo';
+            position: absolute;
+            font-size: 13px;
+            font-weight: 100;
+            margin-top: -8px;
+            margin-left: 5px;
+        }
+        .weather-temp {
+            color: #fff;
+            font-size: 25px;
+        }
+        .weather-temp::after {
+            content: 'o';
+            position: absolute;
+            font-size: 13px;
+            font-weight: 100;
+            margin-top: -8px;
+            margin-left: 5px;
+        }
+        .weather-humidity {
+            color: #ecedf0;
+            margin-top: 10px;
+        }
+        footer {
+            background-color: rgb(92, 89, 89);
+            color: #fff;
+            margin-top: 10px;
+            text-transform: capitalize;
+            padding: 5px;
+        }
+    }
+
+    div:nth-of-type(even) {
+        background-color: #a7aab1
+    }
+
+}
