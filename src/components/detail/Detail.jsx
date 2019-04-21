@@ -1,72 +1,59 @@
 import React from 'react';
 import { API_URL, API_KEY } from '../../config';
 import { timeConverter } from '../../helpers';
-import Loading from '../common/Loading';
 import './Detail.css';
 class Detail extends React.Component {
     constructor() {
         super();
         this.state = {
-            loading: false,
             forecastResults:[],
         }
-        
+        this.fetchForecast = this.fetchForecast.bind(this);
     }
-    componentDidMount() {
 
+    componentDidMount() {
+        const city = this.props.match.url.match(/\/[A-Za-z]{1,}\//)[0].replace(/\//g, '');
+        this.fetchForecast(city)
+    }  
+
+    componentWillReceiveProps(nextProps) {
+        if(this.props.location.pathname !== nextProps.location.pathname) {
+            const city = nextProps.match.url.match(/\/[A-Za-z]{1,}\//)[0].replace(/\//g, '');
+            this.fetchForecast(city);
+        }
+    }
+
+    fetchForecast(cityName) {
         // Set loading to true, while we are fetching data from server
         this.setState({ loading: true});
-        const  getLocation = () => {
-            if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(showPosition); //--get user geolocation
-            } else { 
-              this.setState({
-                  error: 'Geolocation is not supported by this browser.' // Oooops
-              })
-            }
-        }
-        const showPosition = (position) => {
-            const Latitude = position.coords.latitude;
-            const Longitude = position.coords.longitude;
-            //get country & city information
-            
-                fetch(`${API_URL}forecast?lat=${Latitude}&lon=${Longitude}&appid=${API_KEY}&units=metric`)
-                .then((resp) => {
-                    return resp.json()
-                 })
-                .then((data) => {
-                    this.setState({
-                        forecastResults: data.list,
-                        loading: false,
-                })
-              }).catch((err) => {
-                this.setState({
-                    error: 'rejected',
-                    loading: false
-                })
-              });
-        }
-    
-        getLocation();
-        
-   }
+        fetch(`${API_URL}forecast?q=${cityName}&appid=${API_KEY}&units=metric`)
+        .then((resp) => {
+            return resp.json()
+        })
+        .then((data) => {
+            this.setState({
+                forecastResults: data.list,
+                loading: false,
+             })
+        })
+        .catch((err) => {
+            this.setState({
+                error: err,
+                loading: false
+            })
+        });
+    }
+
       render() {
-        const currencyId = this.props.match.params.id;
-        const { forecastResults, loading, error } = this.state;
-        if(loading) {
-            return <div className="loading-container">
-                        <Loading width="30px" height="30px" />
-                    </div>
-        }
-        if(error) {
-            return <div></div>
-        }
-          return (
+        const { forecastResults } = this.state;
+        const forecastId = this.props.match.params.id;
+
+        return (
             <div className="detail-container">
                 {
                     forecastResults.map((item)=>  {
                        let hour = new Date(item.dt * 1000).getUTCHours();
-                       if(timeConverter(item.dt) ===  currencyId) {
+                       if(timeConverter(item.dt) ===  forecastId) {
                             return (
                                 <div key={item.dt}>
                                     <header>

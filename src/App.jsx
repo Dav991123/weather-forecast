@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Weather from './components/Weather';
-// import NotFound from './components/notFound/NotFound.jsx'; 
 import Detail from './components/detail/Detail.jsx';
 const App = () => {
       return (
@@ -10,7 +9,7 @@ const App = () => {
                 <React.Fragment>
                     <Weather/>
                     <Switch>
-                         <Route exact path="/forecast/:id" component={Detail} /> 
+                         <Route exact path="/:id/:id" component={Detail} />
                     </Switch>  
                 </React.Fragment>
             </BrowserRouter>

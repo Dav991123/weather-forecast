@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 import './Forecast.css';
 
 const Forecast = (props) =>  {
-    const { forecastResults } = props;
+    const { forecastResults, city } = props;
     let date = null;
     let count = 0;
     return (
         <> {/*<-----There is a new, shorter syntax you can use for declaring fragments. It looks like empty tags: */}
-            {
+            { city && forecastResults &&
                 forecastResults.map(item => {
                     let newDate = new Date(item.dt * 1000).getUTCDate();
                     if(date !== newDate && count < 5) {
@@ -21,7 +21,7 @@ const Forecast = (props) =>  {
                                 key={item.dt} 
                                 className="five-day-weather"
                                 activeClassName='selectide'
-                                to={`/forecast/${timeConverter(item.dt)}`}
+                                to={`/${city}/${timeConverter(item.dt)}`}
                           
                             >
                                 <header className="forecast-header"> 
