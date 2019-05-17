@@ -1,6 +1,5 @@
 import React from 'react';
 import { API_URL, API_KEY } from '../../config';
-import { timeConverter } from '../../helpers';
 import './Detail.css';
 class Detail extends React.Component {
     constructor() {
@@ -53,7 +52,8 @@ class Detail extends React.Component {
                 {
                     forecastResults.map((item)=>  {
                        let hour = new Date(item.dt * 1000).getUTCHours();
-                       if(timeConverter(item.dt) ===  forecastId) {
+                       
+                       if(forecastId.slice(-2) ===  item.dt_txt.split(' ')[0].slice(-2)) {
                             return (
                                 <div key={item.dt}>
                                     <header>
